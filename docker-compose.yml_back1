@@ -1,0 +1,21 @@
+version: '3'
+services:
+  websocket-server:
+    build: ./websocket-server
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+  nextjs-app:
+    build: ./nextjs-app
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    depends_on:
+      - websocket-server
+
+networks:
+  app-network:
+    driver: bridge
